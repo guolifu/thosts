@@ -1,7 +1,7 @@
 # ThunderHosts
-
+[English](/README.md)/[中文](/README_cn.md)
 ### How to use it ?
-- git clone https://github.com/guolifu/thosts.git
+- `git clone https://github.com/guolifu/thosts.git`
 - Adjust the permissions of hosts files
 shell:`sudo chown yourname:yourgroup /etc/hosts`
 - `cd ./thosts`
