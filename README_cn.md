@@ -6,4 +6,4 @@
 `sudo chown yourname:yourgroup /etc/hosts`
 - `cd ./thosts`
 - `php -S localhost:8000 `
-- 在浏览器中输入 [http://localhost:8000]
+- 在浏览器中输入 [http://localhost:8000](http://localhost:8000)
