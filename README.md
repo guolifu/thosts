@@ -9,6 +9,18 @@
 - Open the browser and enter URL [http://localhost:8000](http://localhost:8000)
 
 ### example
-- default
+
+##### view
 
 ![](https://github.com/guolifu/thosts/raw/master/source/img/p1_1.png)
+
+##### You can double-click the color section to edit it like this, lose focus or press Enter to save automatically.
+![](https://github.com/guolifu/thosts/raw/master/source/img/p1_2.png)
+![](https://github.com/guolifu/thosts/raw/master/source/img/p1_3.png)
+
+##### Check the check box to select whether to open or not
+
+##### Full-text Editor
+![](https://github.com/guolifu/thosts/raw/master/source/img/p2.png)
+
+##### Save after editing

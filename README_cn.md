@@ -7,3 +7,20 @@
 - `cd ./thosts`
 - `php -S localhost:8000 `
 - 在浏览器中输入 [http://localhost:8000](http://localhost:8000)
+
+### 例子
+
+##### 页面
+
+![](https://github.com/guolifu/thosts/raw/master/source/img/p1_1.png)
+
+##### 你可以双击带颜色的文本进行编辑，失去焦点或者按回车键自动保存
+![](https://github.com/guolifu/thosts/raw/master/source/img/p1_2.png)
+![](https://github.com/guolifu/thosts/raw/master/source/img/p1_3.png)
+
+##### 勾选复选框选择是否开启
+
+##### 全文编辑
+![](https://github.com/guolifu/thosts/raw/master/source/img/p2.png)
+
+##### 编辑完了点保存
