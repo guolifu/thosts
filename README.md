@@ -1,5 +1,13 @@
+![](https://github.com/guolifu/thunder/raw/master/logo.png)
+<p align=center>
+<img src='https://img.shields.io/travis/rust-lang/rust.svg' />
+<a target="_blank" href='https://packagist.org/packages/guolifu/thunder' >
+<img src='https://img.shields.io/packagist/dt/doctrine/orm.svg' />
+</a>
+</p>
+
 # ThunderHosts
-[English](/README.md)/[中文](/README_cn.md)
+[[English]](/README.md)/[[中文]](/README_cn.md)
 ### How to use it ?
 - `git clone https://github.com/guolifu/thosts.git`
 - Adjust the permissions of hosts files
