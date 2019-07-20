@@ -12,13 +12,13 @@
 
 ##### 页面
 
-![](https://github.com/guolifu/thosts/raw/master/source/img/p1_1.png)
+![](https://github.com/guolifu/thosts/raw/master/source/img/p1_1.1.png)
 
 ##### 你可以双击带颜色的文本进行编辑，失去焦点或者按回车键自动保存，然后勾选复选框选择是否开启
 ![](https://github.com/guolifu/thosts/raw/master/source/img/p1_2.png)
 ![](https://github.com/guolifu/thosts/raw/master/source/img/p1_3.png)
 
 ##### 点击下拉框修改全文编辑模式
-![](https://github.com/guolifu/thosts/raw/master/source/img/p2.png)
+![](https://github.com/guolifu/thosts/raw/master/source/img/p2.2.png)
 
 ##### 编辑完了点保存
