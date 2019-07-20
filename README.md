@@ -10,5 +10,5 @@
 
 ### example
 - default
-![][p1]
-[p1]:https://github.com/guolifu/thosts/source/img/p1_1.png
+
+!(https://github.com/guolifu/thosts/source/img/p1_1.png)
