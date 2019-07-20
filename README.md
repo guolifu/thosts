@@ -11,4 +11,4 @@
 ### example
 - default
 
-!(https://github.com/guolifu/thosts/source/img/p1_1.png)
+!(https://github.com/guolifu/thosts/blob/master/source/img/p1_1.pnge)
