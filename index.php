@@ -23,6 +23,6 @@ switch ($_GET['act']) {
         }
     default :
         {
-            die('goodbye');
+            Header('Location:./index.html');
         }
 }
