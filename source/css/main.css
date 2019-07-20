@@ -1,0 +1,34 @@
+body {
+    font-size: 14px;
+}
+
+textarea {
+    width: 100%;
+    height: 700px;
+}
+
+.ip {
+    color: #e84e4e;
+}
+
+.domain {
+    color: #32bb7f;
+}
+
+.ip, .domain {
+    cursor: pointer;
+}
+
+.tip {
+    width: 5%;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #ff6500;
+    height: 25px;
+    border-radius: 10px;
+    background-color: #dedecb;
+    text-align: center;
+    display: none;
+}
