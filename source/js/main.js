@@ -13,12 +13,14 @@ $(function () {
                 $('.content').toggle();
                 $('.textarea').toggle();
                 $('.submit').toggle();
+                init_default();
                 break;
             }
             case "textarea": {
                 $('.content').toggle();
                 $('.textarea').toggle();
                 $('.submit').toggle();
+                init_textarea();
                 break;
             }
         }
@@ -81,6 +83,15 @@ $(function () {
  * 初始化
  */
 function init() {
+    init_select();
+    init_default();
+    init_textarea();
+}
+
+/**
+ * select初始化
+ */
+function init_select() {
     $('.change').find("option[value='" + def + "']").attr("selected", true);
     switch (def) {
         case "content": {
@@ -102,7 +113,12 @@ function init() {
             break;
         }
     }
-    // 获取hosts文件信息
+}
+
+/**
+ * 获取hosts文件信息
+ */
+function init_default() {
     $.ajax({
         'method': 'GET',
         'url': '/index.php?act=get',
@@ -115,7 +131,12 @@ function init() {
             });
         }
     });
+}
 
+/**
+ * 获取hosts文件信息
+ */
+function init_textarea() {
     // 获取hosts文件信息
     $.ajax({
         'method': 'GET',
