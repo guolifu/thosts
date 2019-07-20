@@ -1,4 +1,5 @@
-![](https://github.com/guolifu/thunder/raw/master/logo.png)
+<div align=center><img src='https://github.com/guolifu/thunder/raw/master/logo.png'></div>
+
 <p align=center>
 <img src='https://img.shields.io/travis/rust-lang/rust.svg' />
 <a target="_blank" href='https://packagist.org/packages/guolifu/thunder' >
