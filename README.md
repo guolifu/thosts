@@ -7,3 +7,8 @@
 - `cd ./thosts`
 - `php -S localhost:8000 `
 - Open the browser and enter URL [http://localhost:8000](http://localhost:8000)
+
+### example
+- default
+![][p1]
+[p1]:https://github.com/guolifu/thosts/source/img/p1_1.png
