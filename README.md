@@ -14,13 +14,11 @@
 
 ![](https://github.com/guolifu/thosts/raw/master/source/img/p1_1.png)
 
-##### You can double-click the color section to edit it like this, lose focus or press Enter to save automatically.
+##### You can double-click the color section to edit it like this, lose focus or press Enter to save automatically,Check the check box to select whether to open or not
 ![](https://github.com/guolifu/thosts/raw/master/source/img/p1_2.png)
 ![](https://github.com/guolifu/thosts/raw/master/source/img/p1_3.png)
 
-##### Check the check box to select whether to open or not
-
-##### Full-text Editor
+##### Click the selecter to modify the full text editing mode
 ![](https://github.com/guolifu/thosts/raw/master/source/img/p2.png)
 
 ##### Save after editing
