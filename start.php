@@ -2,7 +2,11 @@
 /**
  * @author carl
  */
-include './lib/hosts.class.php';
+define('THOSTS',__DIR__);
+define('LIB',THOSTS.'/lib');
+define('SOURCE',THOSTS.'/source');
+define('CONFIG_PATH',THOSTS.'/source/config.php');
+include LIB.'/hosts.class.php';
 $hostsObj = new Hosts;
 switch ($_GET['act']) {
     case 'get':
@@ -19,6 +23,11 @@ switch ($_GET['act']) {
     case 'save':
         {
             $hostsObj->saveHosts();
+            break;
+        }
+        case 'create':
+        {
+            $hostsObj->createHosts();
             break;
         }
     default :

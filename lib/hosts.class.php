@@ -7,9 +7,11 @@ class Hosts
 {
     public $hosts_path = '/etc/hosts';
 
+    public $config;
+
     public function __construct()
     {
-
+        $this->config = include CONFIG_PATH;
     }
 
     public function getHosts()
@@ -42,6 +44,26 @@ class Hosts
         } else {
             $this->error($res, 'error');
         }
+    }
+
+    public function getHostsConfList()
+    {
+        $list = include CONFIG_PATH;
+        $this->success($list, 'success');
+    }
+
+    public function createHosts()
+    {
+        $name = $_POST['name'];
+        array_push($this->config, $name);
+        $before = '<?php
+
+return ';
+        $after = ';
+';
+        file_put_contents(CONFIG_PATH, $before . var_export($this->config, true) . $after);
+        
+        $this->success('', 'success');
     }
 
     public function success($data, $msg)

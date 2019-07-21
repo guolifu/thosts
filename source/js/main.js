@@ -121,7 +121,7 @@ function init_select() {
 function init_default() {
     $.ajax({
         'method': 'GET',
-        'url': '/index.php?act=get',
+        'url': '/start.php?act=get',
         success: function (e) {
             $('.content').html(e.data.data);
             $("input[type=checkbox]").each(function () {
@@ -140,7 +140,7 @@ function init_textarea() {
     // 获取hosts文件信息
     $.ajax({
         'method': 'GET',
-        'url': '/index.php?act=getarea',
+        'url': '/start.php?act=getarea',
         success: function (e) {
             $('.textarea').html(e.data.data);
         }
@@ -171,7 +171,7 @@ function getContent() {
 function submit() {
     $.ajax({
         'method': 'POST',
-        'url': '/index.php?act=save',
+        'url': '/start.php?act=save',
         'data': {
             content: getContent()
         },
