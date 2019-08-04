@@ -47,6 +47,8 @@ class Hosts
         $has_default_hosts_file = file_exists($this->defaultHostFile);
         if (!$has_default_hosts_file) {
             $this->cHost('default', $this->base_hosts_path, true);
+            // 备份本机原有hosts
+            copy($this->base_hosts_path, SOURCE.'/copy.hosts');
         }
     }
 
