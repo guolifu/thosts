@@ -8,6 +8,7 @@ $(function () {
     $('.change').change(function () {
         var val = $('.change').val();
         setCookie('type', val, 1);
+        def = val;
         switch (val) {
             case "content" : {
                 $('.content').toggle();
