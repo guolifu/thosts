@@ -1,5 +1,5 @@
 .idea
 nohup.out
 copy*
-/source/hosts/*
+/public/source/hosts/*
 !.gitkeep

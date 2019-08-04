@@ -4,7 +4,8 @@
  */
 define('THOSTS', __DIR__);
 define('LIB', THOSTS . '/lib');
-define('SOURCE', THOSTS . '/source');
+define('PUBPATH', THOSTS . '/public');
+define('SOURCE', PUBPATH . '/source');
 define('CONFIG_PATH', SOURCE . '/config.php');
 define('HOSTS_PATH', SOURCE . '/hosts');
 include LIB . '/hosts.class.php';
