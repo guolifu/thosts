@@ -20,7 +20,22 @@ textarea {
 }
 
 .tip {
-    width: 5%;
+    width: 10%;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #2ca81b;
+    height: 25px;
+    border-radius: 10px;
+    background-color: #dedecb;
+    text-align: center;
+    display: none;
+    font-weight: 500;
+}
+
+.tip_err {
+    width: 10%;
     position: fixed;
     left: 50%;
     top: 50%;
@@ -31,4 +46,17 @@ textarea {
     background-color: #dedecb;
     text-align: center;
     display: none;
+    font-weight: 500;
+}
+
+.right {
+    float: right;
+}
+
+#envlist {
+    width: 200px;
+}
+
+.mr20 {
+    margin-right: 20px;
 }

@@ -5,18 +5,60 @@
  */
 class Hosts
 {
-    public $hosts_path = '/etc/hosts';
+    /**
+     * @var string
+     */
+    public $base_hosts_path = '/etc/hosts';
 
+    /**
+     * @var string
+     */
+    public $tmp_path = SOURCE . '/hosts.tmp';
+
+    /**
+     * @var string
+     */
+    public $defaultHostFile = HOSTS_PATH . '/hosts_default';
+
+    /**
+     * @var mixed
+     */
     public $config;
 
+    /**
+     * @var bool
+     */
+    public $preEnv = true;
+
+    /**
+     * Hosts constructor.
+     */
     public function __construct()
     {
         $this->config = include CONFIG_PATH;
+        $this->init();
+    }
+
+    /**
+     * 初始化配置
+     */
+    private function init()
+    {
+        $has_default_hosts_file = file_exists($this->defaultHostFile);
+        if (!$has_default_hosts_file) {
+            $this->cHost('default', $this->base_hosts_path, true);
+        }
     }
 
     public function getHosts()
     {
-        $hosts = file_get_contents($this->hosts_path);
+        $env = array_search(true, $this->config);
+        if ($env) {
+            $readPath = $this->getEnvFilePath($env);
+        } else {
+            $readPath = $this->base_hosts_path;
+        }
+        $hosts = file_get_contents($readPath);
         $pattern = '/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/';
         $hosts = preg_replace($pattern, '<input class="checkbox" type="checkbox"><span class="ip">' . '${0}' . '</span><span class="domain">', $hosts);
         $hosts = str_replace(PHP_EOL, '</span><br>', $hosts);
@@ -28,42 +70,145 @@ class Hosts
 
     public function getTextareaHosts()
     {
-        $hosts = file_get_contents($this->hosts_path);
+        $env = array_search(true, $this->config);
+        if ($env) {
+            $readPath = $this->getEnvFilePath($env);
+        } else {
+            $readPath = $this->base_hosts_path;
+        }
+        $hosts = file_get_contents($readPath);
         $resData = array('data' => '<textarea>' . $hosts . '</textarea>');
         $this->success($resData, 'success');
-
     }
 
     public function saveHosts()
     {
-        $hosts = str_replace('<br>', PHP_EOL, $_POST['content']);
-        $res = file_put_contents($this->hosts_path, strip_tags($hosts));
-        if ($res) {
+        $hosts = strip_tags(str_replace('<br>', PHP_EOL, $_POST['content']));
+        $res = file_put_contents($this->base_hosts_path, $hosts);
+        $env = array_search(true, $this->config);
+        $res_cache = file_put_contents($this->getEnvFilePath($env), $hosts);
+        if ($res && $res_cache) {
             $this->success($res, 'success');
-
         } else {
             $this->error($res, 'error');
         }
     }
 
-    public function getHostsConfList()
+    public function getHostsConfListApi()
     {
         $list = include CONFIG_PATH;
         $this->success($list, 'success');
     }
 
-    public function createHosts()
+    public function envChangeApi()
     {
-        $name = $_POST['name'];
-        array_push($this->config, $name);
-        $before = '<?php
+        $env = $_POST['env'];
+        $res = $this->changeEnv($env);
+        if ($res) {
+            $this->success($res, 'change success');
+        } else {
+            $this->error($res, 'change error');
+        }
+    }
 
-return ';
-        $after = ';
-';
+    public function envDelApi()
+    {
+        $env = $_POST['env'];
+        if ($env == 'default') $this->error('', 'error');
+        $res = unlink($this->getEnvFilePath($env));
+        // 删除配置项
+        unset($this->config[$env]);
+        $this->openEnv('default');
+        if ($res) {
+            $this->success($res, 'delete success');
+        } else {
+            $this->error($res, 'delete error');
+        }
+    }
+
+    private function changeEnv($env)
+    {
+        $envData = file_get_contents($this->getEnvFilePath($env));
+        $res = file_put_contents($this->base_hosts_path, $envData);
+        // 开启环境
+        $this->openEnv($env);
+        return $res;
+    }
+
+    /**
+     * 开启环境
+     * @param $env
+     */
+    private function openEnv($env)
+    {
+        foreach ($this->config as $k => &$item) {
+            if ($item) $item = !$item;
+            if ($k == $env) $item = true;
+        }
+        $this->saveConf();
+    }
+
+    /**
+     * 创建新hosts
+     */
+    public function createHostsApi()
+    {
+        $env = $_POST['env'];
+        if (array_key_exists($env, $this->config)) $this->error('', "env exist!");
+        $flag = $_POST['flag'];
+        $this->cHost($env, $this->tmp_path, (bool)$flag, $preEnv = $this->preEnv);
+        $this->success('', 'create success');
+    }
+
+
+    /**
+     * 创建
+     * @param $env
+     * @param $path
+     * @param $flag
+     * @param bool $preEnv
+     */
+    private function cHost($env, $path, $flag, $preEnv = false)
+    {
+        // 执行创建
+        copy($path, $this->getEnvFilePath($env));
+        $this->config = array_merge($this->config, array($env => $flag));
+        if ($flag) {
+            // 执行迁移并修改配置文件
+            $this->changeEnv($env);
+        } else {
+            $this->saveConf();
+        }
+
+        if ($preEnv) {
+            $this->addPreStr($env);
+        }
+    }
+
+    /**
+     * 添加备注信息
+     * @param $env
+     */
+    private function addPreStr($env)
+    {
+        $tmpData = file_get_contents($this->getEnvFilePath($env));
+        $preStr = '### Created by Thosts ###'.PHP_EOL.'### env:'.$env.' ###'.PHP_EOL;
+        file_put_contents($this->getEnvFilePath($env), $preStr.$tmpData);
+    }
+
+    private function getEnvFilePath($env)
+    {
+        return HOSTS_PATH . '/hosts_' . $env;
+    }
+
+    /**
+     * 保存配置
+     */
+    private function saveConf()
+    {
+        $before = '<?php' . PHP_EOL . PHP_EOL . 'return ';
+        $after = ';';
         file_put_contents(CONFIG_PATH, $before . var_export($this->config, true) . $after);
-        
-        $this->success('', 'success');
     }
 
     public function success($data, $msg)

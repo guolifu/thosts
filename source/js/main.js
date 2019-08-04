@@ -57,7 +57,34 @@ $(function () {
         }
         $(this).prev().show();
         $(this).remove();
-    })
+    });
+
+    // 修改env事件
+    $('#envlist').change(function () {
+        envChangeApi(this)
+    });
+
+    // 创建env事件
+    $('.create-button').click(function () {
+        var _val = $('.env-name').val();
+        var flag = $(this).data('type');
+        if (_val == "") {
+            showTips('failed env name','error');
+            return false
+        }
+        createEnvApi(_val, flag)
+    });
+
+    $('.delete').click(function () {
+        var _val = $('#envlist').val();
+        if (_val == 'default') {
+            showTips('can not del default!','error');
+            return false;
+        }
+        delApi(_val)
+
+    });
+
 
     // 回车事件
     $('.content').on('keypress', 'input[type=text]', function (event) {
@@ -83,9 +110,14 @@ $(function () {
  * 初始化
  */
 function init() {
+    // select初始化
     init_select();
+    // 获取hosts文件信息
     init_default();
+    // 获取hosts内容
     init_textarea();
+    // env获取
+    init_env_list();
 }
 
 /**
@@ -134,15 +166,31 @@ function init_default() {
 }
 
 /**
- * 获取hosts文件信息
+ * 获取hosts内容
  */
 function init_textarea() {
-    // 获取hosts文件信息
     $.ajax({
         'method': 'GET',
         'url': '/start.php?act=getarea',
         success: function (e) {
             $('.textarea').html(e.data.data);
+        }
+    })
+}
+
+/**
+ * 获取env信息
+ */
+function init_env_list() {
+    $.ajax({
+        'method': 'GET',
+        'url': '/start.php?act=envList',
+        success: function (e) {
+            $('#envlist').children().remove();
+            for (val in e.data) {
+                var selected = e.data[val] ? 'selected' : '';
+                $('#envlist').append('<option ' + selected + '>' + val + '</option>');
+            }
         }
     })
 }
@@ -166,6 +214,71 @@ function getContent() {
 }
 
 /**
+ * 切换env
+ * @param obj
+ */
+function envChangeApi(obj) {
+    var _this = $(obj);
+    var env = _this.val();
+    $.ajax({
+        'method': 'POST',
+        'url': '/start.php?act=envChange',
+        'data': {
+            env: env,
+        },
+        success: function (e) {
+            showTips(e.msg);
+            init();
+        }
+    })
+
+}
+
+/**
+ * 新建env
+ * @param val
+ */
+function createEnvApi(val, flag) {
+    if (typeof flag == 'undefined') flag = 0;
+    $.ajax({
+        'method': 'POST',
+        'url': '/start.php?act=envCreate',
+        'data': {
+            env: val,
+            flag: flag,
+        },
+        success: function (e) {
+            showTips(e.msg);
+            if (e.code === 200) {
+                if (!flag) {
+                    init_env_list()
+                } else {
+                    init();
+                }
+            }
+        }
+    })
+
+}
+
+function delApi(val) {
+    $.ajax({
+        'method': 'POST',
+        'url': '/start.php?act=envDelete',
+        'data': {
+            env: val,
+        },
+        success: function (e) {
+            showTips(e.msg);
+            if (e.code === 200) {
+                init();
+            }
+        }
+    })
+
+}
+
+/**
  * 提交
  */
 function submit() {
@@ -186,12 +299,24 @@ function submit() {
  * @param msg
  * @param time
  */
-function showTips(msg, time) {
+function showTips(msg, type, time) {
     if (typeof time === 'undefined') time = 2000;
-    $('.tip').html(msg);
-    $('.tip').fadeToggle();
+    if (typeof type === 'undefined') type = "success";
+    switch (type) {
+        case "success":{
+            var tip = '.tip';
+            break
+        }
+        case "error":{
+            var tip = '.tip_err';
+            break
+        }
+
+    }
+    $(tip).html(msg);
+    $(tip).fadeToggle();
     setTimeout(function () {
-        $('.tip').fadeToggle()
+        $(tip).fadeToggle()
     }, 2000)
 }
 
