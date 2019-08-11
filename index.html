@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>host配置</title>
     <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="./public/source/css/main.css">
+    <link rel="stylesheet" type="text/css" href="./vendor/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="./public/source/css/main.css">
     <link rel="stylesheet" type="text/css" href="./vendor/css/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="./vendor/fonts/font-awesome-4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="./vendor/css/demo.css"/>
     <link rel="stylesheet" type="text/css" href="./vendor/css/sidebar.css"/>
-
     <script src="./vendor/js/snap.svg-min.js"></script>
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -34,6 +34,7 @@
 <div class="main">
     <div class="block">
         <button class="submit">save</button>
+        <i class="layui-icon layui-icon-face-smile" style="font-size: 30px; color: #1E9FFF;"></i>
         <select class="change" name="" id="">
             <option value="content">默认</option>
             <option value="textarea">全编辑模式</option>
@@ -98,6 +99,30 @@
 
         SVGMenu.prototype.initEvents = function () {
             this.trigger.addEventListener('click', this.toggle.bind(this));
+            var self = this;
+
+            if (this.isOpen) {
+                classie.remove(self.el, 'menu--anim');
+                setTimeout(function () {
+                    classie.remove(self.el, 'menu--open');
+                }, 150);
+            } else {
+                classie.add(self.el, 'menu--anim');
+                setTimeout(function () {
+                    classie.add(self.el, 'menu--open');
+                }, 150);
+            }
+            this.pathEl.stop().animate({'path': this.isOpen ? this.paths.close : this.paths.open}, 350, mina.easeout, function () {
+                self.pathEl.stop().animate({'path': self.paths.reset}, 800, mina.elastic);
+            });
+            var bak = $(".allContent").offset().left;
+            var move = bak + 150;
+            if (move > 250) {
+                $(".allContent").animate({"margin-left": bak - 150 + 'px'}, 600);
+            } else {
+                $(".allContent").animate({"margin-left": move + 'px'});
+            }
+            this.isOpen = !this.isOpen;
         };
 
         SVGMenu.prototype.toggle = function () {
@@ -119,7 +144,6 @@
             });
 
             this.isOpen = !this.isOpen;
-            isopen = this.isOpen
         };
 
         new SVGMenu(document.getElementById('menu'));

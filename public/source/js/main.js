@@ -324,7 +324,7 @@ function submit() {
 function showTips(msg, type, time) {
     if (typeof time === 'undefined') time = 2000;
     if (typeof type === 'undefined') type = "success";
-   switch (type) {
+    switch (type) {
         case "success": {
             var icon = 1;
             break
