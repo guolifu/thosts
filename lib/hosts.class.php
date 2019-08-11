@@ -100,9 +100,9 @@ class Hosts
         $env = array_search(true, $this->config);
         $res_cache = file_put_contents($this->getEnvFilePath($env), $hosts);
         if ($res && $res_cache) {
-            $this->success($res, 'success');
+            $this->success($hosts, 'success');
         } else {
-            $this->error($res, 'error');
+            $this->error($hosts, 'error');
         }
     }
 
