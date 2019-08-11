@@ -99,6 +99,7 @@ class Hosts
             $hosts = strip_tags(str_replace("\r\n", '{PHP_EOL}', $_POST['content']));
             $hosts = strip_tags(str_replace("\n", '{PHP_EOL}', $hosts));
             $hosts = strip_tags(str_replace("{PHP_EOL}", PHP_EOL, $hosts));
+            $hosts = strip_tags(str_replace('<br>', PHP_EOL, $hosts));
         } else {
             $hosts = strip_tags(str_replace('<br>', PHP_EOL, $_POST['content']));
         }
