@@ -8,7 +8,7 @@ a {
 
 input[type="checkbox"] {
     cursor: pointer;
-    margin-right: 5px;
+    margin: 0 5px;
 }
 
 textarea {
