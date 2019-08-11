@@ -72,7 +72,7 @@ $(function () {
         envChangeApi($(this).text())
     });
 
-    $('.menu__inner').on('click', '.envlist i', function (e) {
+    $('.menu__inner').on('click', '.list i', function (e) {
         var env = $(this).data('env');
         delApi(env);
         e.stopPropagation();
@@ -215,10 +215,10 @@ function init_env_list() {
                 var selected = e.data[val] ? 'selected' : '';
                 var selectedList = e.data[val] ? 'style="color:#1bb111"' : '';
                 var clickClass = !e.data[val] ? 'class="envlist"' : '';
-                var icon = '<i data-env="' + val + '" style="margin-left: 10px;" class="layui-icon layui-icon-delete"></i>'
+                var icon = '<i data-env="' + val + '" style="margin-left: 10px;color: #cccccc;" class="layui-icon layui-icon-delete"></i>'
                 var hasIcon = val !== 'default' ? icon : '';
                 $('#envlist').append('<option ' + selected + '>' + val + '</option>');
-                $('.menu__inner ul').append('<li ' + selected + '><a ' + selectedList + '><span ><p ' + clickClass + ' align=center ><font size=5>' + val + '</font>' + hasIcon + '</p></span></a></li>');
+                $('.menu__inner ul').append('<li class="list" ' + selected + '><a ' + selectedList + '><span ><p ' + clickClass + ' align=center ><font size=5>' + val + '</font>' + hasIcon + '</p></span></a></li>');
             }
         }
     })
