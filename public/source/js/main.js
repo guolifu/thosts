@@ -236,7 +236,15 @@ function getContent() {
             break;
         }
         case "textarea": {
-            return $('.' + val + ' textarea').val();
+            var con = $('.' + val + ' textarea').val();
+            con.replace('/\r\n/g', '{BrReturn}');
+            con.replace('/\n/g', '{BrReturn}');
+            if (getOSName() === 'win') {
+                con.replace('/{BrReturn}/', '\r\n');
+            } else {
+                con.replace('/{BrReturn}/', '\n');
+            }
+            return con;
             break;
         }
     }
@@ -373,4 +381,39 @@ function _del(obj) {
         obj.prev().remove();
         _del(obj)
     }
+}
+
+function getOSName() {
+    var userAgent = navigator.userAgent;
+    var isMac = (navigator.platform == "Mac68K") || (navigator.platform == "MacPPC") || (navigator.platform == "Macintosh") || (navigator.platform == "MacIntel");
+    if (isMac) return "Mac";
+
+    var isWin = (navigator.platform == "Win32") || (navigator.platform == "Windows");
+    var isUnix = (navigator.platform == "X11") && !isWin && !isMac;
+    if (isUnix) return "Unix";
+
+    var isLinux = (String(navigator.platform).indexOf("Linux") > -1);
+    if (isLinux) return "Linux";
+
+    if (isWin) {
+        var findFlag = userAgent.indexOf("Windows NT 5.0") > -1 || userAgent.indexOf("Windows 2000") > -1;
+        if (findFlag) return "Win2000";
+        var findFlag = userAgent.indexOf("Windows NT 5.1") > -1 || userAgent.indexOf("Windows XP") > -1;
+        if (findFlag) return "WinXP";
+        var findFlag = userAgent.indexOf("Windows NT 5.2") > -1 || userAgent.indexOf("Windows 2003") > -1;
+        if (findFlag) return "Win2003";
+        var findFlag= userAgent.indexOf("Windows NT 6.0") > -1 || userAgent.indexOf("Windows Vista") > -1;
+        if (findFlag) return "WinVista";
+        var findFlag = userAgent.indexOf("Windows NT 6.1") > -1 || userAgent.indexOf("Windows 7") > -1;
+        if (findFlag) return "Win7";
+        var findFlag = userAgent.indexOf("Windows NT 6.2") > -1 || userAgent.indexOf("Windows 8") > -1;
+        if (findFlag) return "Win8";
+        var findFlag = userAgent.indexOf("Windows NT 6.3") > -1 || userAgent.indexOf("Windows 8.1") > -1;
+        if (isWifindFlagn8_1) return "Win8.1";
+        var findFlag = userAgent.indexOf("Windows NT 6.4") > -1 || userAgent.indexOf("Windows 10") > -1;
+        if (isWifindFlagn8_1) return "Win10";
+        return 'win';
+    }
+
+    return "other";
 }

@@ -36,7 +36,7 @@ class Hosts
     public function __construct()
     {
         $this->config = include CONFIG_PATH;
-        $this->base_hosts_path = strtoupper(substr(PHP_OS,0,3))==='WIN'?'C:\Windows\System32\drivers\etc\hosts':'/etc/hosts';
+        $this->base_hosts_path = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? 'C:\Windows\System32\drivers\etc\hosts' : '/etc/hosts';
         $this->init();
     }
 
@@ -49,7 +49,7 @@ class Hosts
         if (!$has_default_hosts_file) {
             $this->cHost('default', $this->base_hosts_path, true);
             // 备份本机原有hosts
-            copy($this->base_hosts_path, SOURCE.'/copy.hosts');
+            copy($this->base_hosts_path, SOURCE . '/copy.hosts');
         }
     }
 
@@ -213,8 +213,8 @@ class Hosts
     private function addPreStr($env)
     {
         $tmpData = file_get_contents($this->getEnvFilePath($env));
-        $preStr = '### Created by Thosts ###'.PHP_EOL.'### env:'.$env.' ###'.PHP_EOL;
-        file_put_contents($this->getEnvFilePath($env), $preStr.$tmpData);
+        $preStr = '### Created by Thosts ###' . PHP_EOL . '### env:' . $env . ' ###' . PHP_EOL;
+        file_put_contents($this->getEnvFilePath($env), $preStr . $tmpData);
     }
 
     private function getEnvFilePath($env)
