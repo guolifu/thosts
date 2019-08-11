@@ -36,7 +36,7 @@ class Hosts
     public function __construct()
     {
         $this->config = include CONFIG_PATH;
-        $this->base_hosts_path = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? 'C:\Windows\System32\drivers\etc\hosts' : '/etc/hosts';
+        $this->base_hosts_path = $this->isWin() ? 'C:\Windows\System32\drivers\etc\hosts' : '/etc/hosts';
         $this->init();
     }
 
@@ -95,7 +95,13 @@ class Hosts
      */
     public function saveHosts()
     {
-        $hosts = strip_tags(str_replace('<br>', PHP_EOL, $_POST['content']));
+        if ($this->isWin()) {
+            $hosts = strip_tags(str_replace("\r\n", '{PHP_EOL}', $_POST['content']));
+            $hosts = strip_tags(str_replace("\n", '{PHP_EOL}', $hosts));
+            $hosts = strip_tags(str_replace("{PHP_EOL}", PHP_EOL, $hosts));
+        } else {
+            $hosts = strip_tags(str_replace('<br>', PHP_EOL, $_POST['content']));
+        }
         $res = file_put_contents($this->base_hosts_path, $hosts);
         $env = array_search(true, $this->config);
         $res_cache = file_put_contents($this->getEnvFilePath($env), $hosts);
@@ -252,6 +258,11 @@ class Hosts
             'data' => $data
         ));
         die;
+    }
+
+    public function isWin()
+    {
+        return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? true : false;
     }
 
 
