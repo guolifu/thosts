@@ -4,7 +4,7 @@
 .clearfix:before, .clearfix:after { content: ''; display: table; }
 .clearfix:after { clear: both; }
 
-body {
+body,textarea {
 	color: #858589;
 	background: #2f3238;
 	font-weight: 400;
