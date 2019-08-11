@@ -36,6 +36,7 @@ class Hosts
     public function __construct()
     {
         $this->config = include CONFIG_PATH;
+        $this->base_hosts_path = strtoupper(substr(PHP_OS,0,3))==='WIN'?'C:\Windows\System32\drivers\etc\hosts':'/etc/hosts';
         $this->init();
     }
 
