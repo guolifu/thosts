@@ -95,14 +95,10 @@ class Hosts
      */
     public function saveHosts()
     {
-        if ($this->isWin()) {
-            $hosts = str_replace("\r\n", '{PHP_EOL}', $_POST['content']);
-            $hosts = str_replace("\n", '{PHP_EOL}', $hosts);
-            $hosts = str_replace("{PHP_EOL}", PHP_EOL, $hosts);
-            $hosts = strip_tags(str_replace('<br>', PHP_EOL, $hosts));
-        } else {
-            $hosts = strip_tags(str_replace('<br>', PHP_EOL, $_POST['content']));
-        }
+        $hosts = str_replace("\r\n", '{PHP_EOL}', $_POST['content']);
+        $hosts = str_replace("\n", '{PHP_EOL}', $hosts);
+        $hosts = str_replace("{PHP_EOL}", PHP_EOL, $hosts);
+        $hosts = strip_tags(str_replace('<br>', PHP_EOL, $hosts));
         $res = file_put_contents($this->base_hosts_path, $hosts);
         $env = array_search(true, $this->config);
         $res_cache = file_put_contents($this->getEnvFilePath($env), $hosts);
