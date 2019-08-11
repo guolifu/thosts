@@ -25,6 +25,6 @@
 ![](https://github.com/guolifu/thosts/raw/master/public/source/img/p1_3_v1.1.png)
 
 ##### 点击下拉框修改全文编辑模式
-![](https://github.com/guolifu/thosts/raw/master/public/source/img/p1_3_v1.1.png)
+![](https://github.com/guolifu/thosts/raw/master/public/source/img/p2_1_v1.1.png)
 
 ##### 编辑完了点保存

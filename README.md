@@ -25,6 +25,6 @@
 ![](https://github.com/guolifu/thosts/raw/master/public/source/img/p1_3_v1.1.png)
 
 ##### Click the selecter to modify the full text editing mode
-![](https://github.com/guolifu/thosts/raw/master/public/source/img/p1_3_v1.1.png)
+![](https://github.com/guolifu/thosts/raw/master/public/source/img/p2_1_v1.1.png)
 
 ##### Save after editing
