@@ -8,7 +8,7 @@ a {
 
 input[type="checkbox"] {
     cursor: pointer;
-    margin: 0 5px;
+    margin-right: 5px;
 }
 
 .header {
