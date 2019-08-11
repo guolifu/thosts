@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>host配置</title>
     <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="./vendor/css/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="./vendor/layui/css/layui.css">
     <link rel="stylesheet" type="text/css" href="./public/source/css/main.css">
-    <link rel="stylesheet" type="text/css" href="./vendor/css/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="./vendor/fonts/font-awesome-4.2.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="./vendor/css/demo.css"/>
     <link rel="stylesheet" type="text/css" href="./vendor/css/sidebar.css"/>
@@ -33,31 +33,20 @@
 </nav>
 <div class="main">
     <div class="block">
-        <button class="submit">save</button>
-        <i class="layui-icon layui-icon-face-smile" style="font-size: 30px; color: #1E9FFF;"></i>
-        <select class="change" name="" id="">
-            <option value="content">默认</option>
-            <option value="textarea">全编辑模式</option>
-        </select>
-
-        <div class="mr20 right">
-            <button class="delete">delete</button>
+        <div class="header">
+            <button class="submit">save</button>
+            <select class="change" name="" id="">
+                <option value="content">默认</option>
+                <option value="textarea">全编辑模式</option>
+            </select>
+            <div class="mr20 create-env right">
+                <input class="env-name" placeholder="env name" type="text"/>
+                <button class="create-button layui-btn layui-btn-xs" data-type="0">创建</button>
+                <button class="create-button layui-btn layui-btn-normal layui-btn-xs" data-type="1">创建并切换</button>
+            </div>
+            <hr class="layui-bg-orange">
         </div>
-
-        <!--选择env-->
-        <div class="mr20 change-env right">
-            <span>环境选择：</span>
-            <select name="envlist" id="envlist"></select>
-        </div>
-
-        <!--创建模块-->
-        <div class="mr20 create-env right">
-            <input class="env-name" placeholder="env name" type="text"/>
-            <button class="create-button" data-type="0">创建</button>
-            <button class="create-button" data-type="1">创建并切换</button>
-        </div>
-
-        <hr>
+        <!--主要内容-->
         <div class="allContent">
             <div class="content"></div>
             <div class="textarea"></div>
@@ -65,10 +54,6 @@
         <div class="tip"></div>
         <div class="tip_err"></div>
     </div>
-    <header class="codrops-header">
-
-    </header>
-
 </div><!-- /main -->
 <script src="./public/source/js/jquery.js"></script>
 <script src="./vendor/layer/layer.js"></script>
