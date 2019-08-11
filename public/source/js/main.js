@@ -62,7 +62,14 @@ $(function () {
 
     // 修改env事件
     $('#envlist').change(function () {
-        envChangeApi(this)
+        var _this = $(this);
+        var env = _this.val();
+        envChangeApi(env)
+    });
+
+
+    $('.menu__inner').on('click', '.envlist', function () {
+        envChangeApi($(this).text())
     });
 
     // 创建env事件
@@ -70,7 +77,7 @@ $(function () {
         var _val = $('.env-name').val();
         var flag = $(this).data('type');
         if (_val == "") {
-            showTips('failed env name','error');
+            showTips('failed env name', 'error');
             return false
         }
         createEnvApi(_val, flag)
@@ -79,7 +86,7 @@ $(function () {
     $('.delete').click(function () {
         var _val = $('#envlist').val();
         if (_val == 'default') {
-            showTips('can not del default!','error');
+            showTips('can not del default!', 'error');
             return false;
         }
         delApi(_val)
@@ -101,6 +108,16 @@ $(function () {
         }
     });
 
+    // 展示
+    $('.menu__handle').click(function () {
+        var bak = $(".allContent").offset().left;
+        var move = bak + 150;
+        if (move > 250) {
+            $(".allContent").animate({"margin-left": bak - 150 + 'px'}, 600);
+        } else {
+            $(".allContent").animate({"margin-left": move + 'px'});
+        }
+    });
     // 提交
     $('.submit').click(function () {
         submit()
@@ -188,9 +205,13 @@ function init_env_list() {
         'url': '/start.php?act=envList',
         success: function (e) {
             $('#envlist').children().remove();
+            $('.menu__inner ul').children().remove();
             for (val in e.data) {
                 var selected = e.data[val] ? 'selected' : '';
+                var selectedList = e.data[val] ? 'style="color:#1bb111"' : '';
+                var clickClass = !e.data[val] ? 'class="envlist"' : '';
                 $('#envlist').append('<option ' + selected + '>' + val + '</option>');
+                $('.menu__inner ul').append('<li ' + selected + '><a ' + selectedList + '><span ><p align=center ><font size=5 ' + clickClass + '>' + val + '</font></p></span></a></li>');
             }
         }
     })
@@ -216,11 +237,9 @@ function getContent() {
 
 /**
  * 切换env
- * @param obj
+ * @param string
  */
-function envChangeApi(obj) {
-    var _this = $(obj);
-    var env = _this.val();
+function envChangeApi(env) {
     $.ajax({
         'method': 'POST',
         'url': '/start.php?act=envChange',
@@ -249,13 +268,15 @@ function createEnvApi(val, flag) {
             flag: flag,
         },
         success: function (e) {
-            showTips(e.msg);
             if (e.code === 200) {
+                showTips(e.msg);
                 if (!flag) {
                     init_env_list()
                 } else {
                     init();
                 }
+            } else {
+                showTips(e.msg, 'error');
             }
         }
     })
@@ -303,22 +324,23 @@ function submit() {
 function showTips(msg, type, time) {
     if (typeof time === 'undefined') time = 2000;
     if (typeof type === 'undefined') type = "success";
-    switch (type) {
-        case "success":{
-            var tip = '.tip';
+   switch (type) {
+        case "success": {
+            var icon = 1;
             break
         }
-        case "error":{
-            var tip = '.tip_err';
+        case "error": {
+            var icon = 5;
             break
         }
-
     }
+    layer.msg(msg, {icon: icon});
+    /*
     $(tip).html(msg);
     $(tip).fadeToggle();
     setTimeout(function () {
         $(tip).fadeToggle()
-    }, 2000)
+    }, 2000)*/
 }
 
 function setCookie(cname, cvalue, exdays) {

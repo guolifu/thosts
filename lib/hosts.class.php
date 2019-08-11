@@ -52,6 +52,9 @@ class Hosts
         }
     }
 
+    /**
+     * 获取
+     */
     public function getHosts()
     {
         $env = array_search(true, $this->config);
@@ -70,6 +73,9 @@ class Hosts
         $this->success($resData, 'success');
     }
 
+    /**
+     * 获取
+     */
     public function getTextareaHosts()
     {
         $env = array_search(true, $this->config);
@@ -83,6 +89,9 @@ class Hosts
         $this->success($resData, 'success');
     }
 
+    /**
+     * 保存
+     */
     public function saveHosts()
     {
         $hosts = strip_tags(str_replace('<br>', PHP_EOL, $_POST['content']));
@@ -96,12 +105,18 @@ class Hosts
         }
     }
 
+    /**
+     * 配置列表
+     */
     public function getHostsConfListApi()
     {
         $list = include CONFIG_PATH;
         $this->success($list, 'success');
     }
 
+    /**
+     * 切换env
+     */
     public function envChangeApi()
     {
         $env = $_POST['env'];
@@ -113,6 +128,9 @@ class Hosts
         }
     }
 
+    /**
+     * 删除env
+     */
     public function envDelApi()
     {
         $env = $_POST['env'];
