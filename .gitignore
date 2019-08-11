@@ -3,3 +3,4 @@ nohup.out
 copy*
 /public/source/hosts/*
 !.gitkeep
+.DS_Store
