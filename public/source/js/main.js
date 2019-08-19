@@ -218,7 +218,7 @@ function init_env_list() {
                 var icon = '<i data-env="' + val + '" style="margin-left: 10px;color: #cccccc;" class="layui-icon layui-icon-delete"></i>'
                 var hasIcon = val !== 'default' ? icon : '';
                 $('#envlist').append('<option ' + selected + '>' + val + '</option>');
-                $('.menu__inner ul').append('<li class="list" ' + selected + '><a ' + selectedList + '><span ><p ' + clickClass + ' align=center ><font size=5>' + val + '</font>' + hasIcon + '</p></span></a></li>');
+                $('.menu__inner ul').append('<li class="list" ' + selected + '><a ' + selectedList + '><span ><p ' + clickClass + ' align=center ><font size=4>' + val + '</font>' + hasIcon + '</p></span></a></li>');
             }
         }
     })
